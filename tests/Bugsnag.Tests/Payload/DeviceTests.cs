@@ -1,4 +1,5 @@
 using Bugsnag.Payload;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Bugsnag.Tests.Payload
@@ -21,10 +22,19 @@ namespace Bugsnag.Tests.Payload
     }
 
     [Fact]
-    public void SpecifyTime()
+    public void IncludesTime()
     {
       var device = new Device("hostname");
       Assert.NotNull(device["time"]);
+    }
+
+    [Fact]
+    public void IncludesRuntimeVersions()
+    {
+      var device = new Device("hostname");
+      var runtimeVersions = (Dictionary<string, string>) device["runtimeVersions"];
+      Assert.NotNull(runtimeVersions["dotnet"]);
+      Assert.NotNull(runtimeVersions["dotnetClr"]);
     }
 
     [Fact]
